@@ -53,6 +53,9 @@ async def security(req,call_next):
     for k,v in {"X-Content-Type-Options":"nosniff","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","Cache-Control":"no-store","Content-Security-Policy":"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'","Permissions-Policy":"camera=(), microphone=(), geolocation=()"}.items():resp.headers[k]=v
     return resp
 
+@app.head("/")
+def head():return Response(status_code=200)
+
 @app.get("/health")
 def health():return {"status":"ok","app":"datafix-express"}
 @app.get("/ready")
